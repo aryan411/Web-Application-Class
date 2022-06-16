@@ -1,36 +1,15 @@
-// require built-in modules
-const http = require('http');
-const fs = require('fs');
-let mime_type = require('')
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const app = (0, express_1.default)();
 const port = 3000;
-
-// when the server is instantiated (created) it is IMMUTABLE
-const server = http.createServer(function(req, res)
-{
-    let path = req.url;
-
-    if(path =="/" || path == "/home")
-    {
-        path = "/index.html"
-    }
-    // reads a file from the file system
-    fs.readFile(__dirname + path, function(err, data)
-    {
-        // some error exists with the url
-        if(err)
-        {
-            res.writeHead(404); // file does not exist
-            console.log(`ERROR: ${err.message}`);        
-            return res.end("ERROR: 404");
-        }
-        // no error
-        res.writeHead(200); // all ok
-        console.log(`Full File Name: ${__filename}`);
-       return res.end(data); // outputs the file to the browser
-    });
+app.get('/', (req, res) => {
+    res.send('Hello World!');
 });
-
-server.listen(port, function()
-{
-    console.log("Server Running at Port: " + port);
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
 });
+//# sourceMappingURL=server.js.map
